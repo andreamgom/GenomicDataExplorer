@@ -1,86 +1,93 @@
 # Análisis de Secuencias Genómicas y Proteicas
 
 ## 📖 Introducción
-El análisis de secuencias genómicas y proteicas es un componente esencial en la bioinformática. Permite comprender la composición, estructura y funcionalidad de genes y proteínas. Este proyecto tiene como objetivo principal procesar y analizar secuencias biológicas almacenadas en archivos FASTA, con un enfoque específico en el conteo y visualización de bases nucleotídicas y residuos de aminoácidos.
+Este proyecto tiene como objetivo procesar y analizar secuencias biológicas almacenadas en archivos FASTA, con un enfoque en:
+- Conteo y visualización de bases nucleotídicas en ADN.
+- Análisis de residuos de aminoácidos en proteínas.
+- Descarga de secuencias desde la API de NCBI en formatos **FASTA** y **GenBank**.
 
 ---
 
 ## 🔍 Descarga de Secuencias mediante la API de NCBI
 
-Se pueden obtener secuencias de ADN y proteínas desde la base de datos de NCBI utilizando la URL:
+Se pueden obtener secuencias desde NCBI utilizando la URL: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db={db}&id={sequence_id}&rettype={rettype}&retmode=text
 
 
+**Parámetros**:
+- `db`: Base de datos (`nucleotide` para ADN, `protein` para proteínas).
+- `sequence_id`: Identificador único de la secuencia.
+- `rettype`: Formato del archivo (`FASTA` o `GenBank`).
 
-### Parámetros:
-- **`db`**: Base de datos a consultar (`nucleotide` para ADN, `protein` para proteínas).
-- **`sequence_id`**: Identificador único de la secuencia.
-- **`rettype`**: Formato del archivo (`FASTA` o `GenBank`).
-
-Ejemplo: Descargar una secuencia específica y guardarla en ambos formatos (FASTA y GenBank) en tu dispositivo.
-
----
-
-## 🖥️ Interfaz de Usuario
-
-### Vista previa:
-La interfaz permite buscar secuencias introduciendo el identificador y descargarlas directamente desde la API. A continuación, el archivo puede ser guardado con un nombre y ubicación personalizada.
+### Ejemplo:
+Descargar la secuencia de un gen introduciendo el identificador, y guardar los archivos descargados en tu dispositivo. Primero en formato **FASTA** y luego en **GenBank**.
 
 ---
 
-## 🧬 Análisis del Gen APP
+## 🧬 Caso 1: Análisis del Gen APP
 
-### Contexto:
-La enfermedad de Alzheimer es una condición neurodegenerativa asociada con mutaciones en genes como **APP**, **PSEN1**, y **PSEN2**, que llevan a la acumulación tóxica de β-amiloide en el cerebro. 
+### 1. ¿Qué tipo de información contienen los archivos?
 
-El gen **APP** está localizado en el brazo largo del cromosoma 21 (21q21.3) y codifica la **proteína precursora de amiloide**. Mutaciones en este gen han sido asociadas con casos de Alzheimer de inicio precoz.
+#### Archivo FASTA
+- Contiene una **secuencia de nucleótidos** (ARN mensajero del gen APP).
+- El encabezado incluye el identificador `NM_000484.4` y una breve descripción del gen.
+- La secuencia contiene nucleótidos (A, T, C, G).
 
-### Contenido de los Archivos:
-#### **Formato FASTA**
-- **Encabezado**: `>NM_000484.4 Homo sapiens APP variant 1`.
-- **Secuencia**: Contiene nucleótidos (A, T, C, G).
+#### Archivo GenBank
+- Incluye información adicional:
+  - **Identificador único**: NM_000484.4.
+  - **Descripción**: mRNA del gen APP, variante de transcripción 1.
+  - **Clasificación taxonómica**: *Homo sapiens*.
+  - **Anotaciones funcionales**: Genes, exones, CDS, y regiones regulatorias.
 
-#### **Formato GenBank**
-Incluye información adicional como:
-- **General Info**: Identificador, longitud, descripción, organismo, y taxonomía.
-- **Gene Info**: Localización, nombre del gen y anotaciones.
-- **Exons**: Rango de nucleótidos de cada exón.
-- **CDS (Coding Sequences)**: Secuencia codificante para proteínas.
-- **Péptidos señal y maduros**: Regiones funcionales derivadas.
-- **Regulatory Features**: Promotores, potenciadores y otros elementos regulatorios.
+### 2. ¿Son secuencias de genes específicos, genomas completos u otras entidades biológicas?
+Corresponden a un **gen específico**. En este caso, el gen **APP** humano.
 
-### Proporción Nucleotídica:
-La secuencia tiene una longitud de **3,583 bp**, con una distribución equilibrada de bases, predominando A y G.
+### 3. Proporción de nucleótidos:
+La secuencia de 3,583 bp muestra un equilibrio entre bases nucleotídicas, con una ligera predominancia de A y G.
 
 ---
 
-## 🌟 Análisis de Green Fluorescent Protein (GFP)
+## 🧬 Caso 2: Análisis de la Green Fluorescent Protein (GFP)
 
-### Contenido de los Archivos:
-#### **Formato FASTA**
-- Secuencia de 236 aminoácidos.
+### 1. ¿Qué tipo de información contienen los archivos?
+
+#### Archivo FASTA
+- Contiene la **secuencia de aminoácidos** de la proteína GFP.
 - Encabezado: `>Chain A, GREEN FLUORESCENT PROTEIN`.
+- Secuencia de 236 aminoácidos representada con letras estándar.
 
-#### **Formato GenPept**
-- Anotaciones detalladas como:
-  - Fuente biológica: *Aequorea victoria*.
-  - Estructura y funcionalidad.
-  - Clasificación en bases de datos como Pfam.
+#### Archivo GenPept
+- Contiene la misma secuencia, pero con anotaciones detalladas:
+  - **Fuente biológica**: *Aequorea victoria*.
+  - **Información estructural**: Hojas beta y residuos no estándar como MSE.
+  - **Clasificación funcional**: Referencias a bases de datos como Pfam.
 
----
+### 2. ¿Son secuencias de genes específicos, genomas completos u otras entidades biológicas?
+Corresponden a una **proteína específica**, GFP, traducida de su gen original.
 
-## 🧩 Ejemplo: Fragmento de Cromosoma en Arabidopsis thaliana
-
-### Archivo FASTA:
-- **Encabezado**: `>AL161505.2 Arabidopsis thaliana DNA chromosome 4, contig fragment No. 17`.
-- **Secuencia**: Representación de nucleótidos.
-
-### Representación Gráfica:
-- **Genes y exones**: Anotados en el eje genómico.
-- **Regiones repetidas**: Visualización de elementos móviles o regulatorios.
+### 3. Proporción de aminoácidos:
+La proteína tiene 236 aminoácidos. Cada uno está representado por su frecuencia relativa en la secuencia.
 
 ---
 
-## 📊 Conclusión
+## 🌱 Reto: Fragmento del Cromosoma 4 de *Arabidopsis thaliana*
 
-Este proyecto ofrece una herramienta integral para el análisis de secuencias genómicas y proteicas, combinando acceso directo a bases de datos (NCBI), procesamiento de secuencias en diversos formatos y análisis estructural. Es aplicable en investigaciones sobre enfermedades genéticas y estudios funcionales de proteínas.
+### 1. ¿Qué tipo de información contienen los archivos?
+
+#### Archivo FASTA
+- Contiene la secuencia de ADN del cromosoma 4, fragmento de contig Nº 17.
+- Encabezado: `>AL161505.2 Arabidopsis thaliana DNA chromosome 4, contig fragment No. 17`.
+- Secuencia en nucleótidos (A, T, G, C).
+
+#### Vista gráfica
+Proporciona un mapa estructural y funcional del fragmento:
+- **Genes y exones**: Marcados en el eje genómico.
+- **Regiones repetidas**: Elementos móviles y regulatorios.
+
+### 2. Anotaciones funcionales:
+- Genes como AT4g97320 y AT4g97410.
+- Elementos regulatorios como promotores.
+
+
+
 
